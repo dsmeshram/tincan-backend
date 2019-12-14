@@ -1,0 +1,33 @@
+{
+  "name": "mean-app",
+  "version": "1.0.0",
+  "description": "for tinbackend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsmeshram/tinback.git"
+  },
+  "keywords": [
+    "tin",
+    "can",
+    "backend"
+  ],
+  "author": "Damodhar M",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dsmeshram/tinback/issues"
+  },
+  "homepage": "https://github.com/dsmeshram/tinback#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "google-play-scraper": "^7.1.1",
+    "md5": "^2.2.1",
+    "mongoose": "^5.7.13",
+    "nodemailer": "^6.4.1"
+  }
+}
