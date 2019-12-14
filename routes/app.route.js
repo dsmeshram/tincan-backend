@@ -45,6 +45,9 @@ router.get('/app/details/:packagename', appdetails_controller.getappdetails);
 router.get('/apps/validation/:key', apps_controller.keyValidation);
 
 //save Analytics
-router.post('/apps/:userId/:appId/:vId/:deviceId/saveAnalytics', analytics_controller.saveAnalytics);
+router.post('/analytics/:userId/:appId/:vId/:deviceId/saveAnalytics', analytics_controller.saveAnalytics);
+
+//fetch all Analytics
+router.get('/analytics/:userId/:appId/:vId/:deviceId/getAnalytics', analytics_controller.getAnalytics);
 
 module.exports = router;

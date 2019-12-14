@@ -19,7 +19,7 @@ let AnalyticsSchema = new Schema({
     ]
 });
 
-//add app details
+//add analytics details
 AnalyticsSchema.statics.saveAnalytics = async function (req, res) {
     let analytics = {};
     // user id
@@ -44,6 +44,28 @@ AnalyticsSchema.statics.saveAnalytics = async function (req, res) {
     } else {
         res.json({ status: 400, message: "body can not be empty" });
     }
+}
+
+// get analytics details
+AnalyticsSchema.statics.getAnalytics = async function (req, res) {
+    let query = {};
+    if (req.params.userId) {
+        query.userId = req.params.userId;
+    }
+    if (req.params.deviceId) {
+        query.deviceId = req.params.deviceId;
+    }
+    if (req.params.vId) {
+        query.vId = req.params.vId;
+    }
+    if (req.params.appId) {
+        query.appId = req.params.appId;
+    }
+    this.find(query).then(analytics => {
+        res.json({ status: 200, message: "Success", analytics: analytics });
+    }).catch(err => {
+        res.json({ status: 401, message: err });
+    });
 }
 
 
