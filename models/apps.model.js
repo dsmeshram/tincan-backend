@@ -26,7 +26,7 @@ AppSchema.statics.findAppsByUserID = async function (userid,res) {
  
 //Get all aps via clientID
 AppSchema.statics.registerApp = async function (app,res) {
-  this.count({}).then(count=>{;
+  this.count({}).then(count=>{
     app.appid = count + 1;
     
     let key = app.appname+"#"+app.packagename+"#"+app.userid;

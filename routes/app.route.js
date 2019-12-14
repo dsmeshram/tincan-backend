@@ -5,7 +5,7 @@ const router = express.Router();
 const apps_controller = require('../controllers/app.controller');
 const user_controller = require('../controllers/user.controller');
 const appdetails_controller = require('../controllers/appdetails.controller');
-
+const analytics_controller = require('../controllers/analytics.controller');
 
 
 router.get('/apps/details/review/:packagename', appdetails_controller.getApplicationReview);
@@ -44,5 +44,7 @@ router.get('/app/details/:packagename', appdetails_controller.getappdetails);
 //key validation
 router.get('/apps/validation/:key', apps_controller.keyValidation);
 
+//save Analytics
+router.post('/apps/:userId/:appId/:vId/:deviceId/saveAnalytics', analytics_controller.saveAnalytics);
 
 module.exports = router;
