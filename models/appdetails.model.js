@@ -4,10 +4,12 @@ const Schema = mongoose.Schema;
 var gplay = require('google-play-scraper');
 
 let AppDetailsSchema = new Schema({
+    appid:{type:String, required:true,max:100,unique:true},
     ostype: {type: String, required: true, max: 100},
     packagename:{type: String, required: true,max: 100,unique:true},
     versions: {type: String, required: true,max: 100},
     min_max_sdk: {type: String, required: true,max: 100},
+    device : {type:String ,required: true,max: 500},
     libs :{type: Array,default:[]}
 });
 

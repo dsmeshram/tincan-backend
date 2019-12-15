@@ -50,7 +50,7 @@ AppSchema.statics.registerApp = async function (app,res) {
 
 //Delet all aps via clientID
 AppSchema.statics.removeApp = async function (userid,appid,res) {
-  this.find({"userid":userid,"appid":appid}).remove().then(response=>{
+  this.find({"userid":userid,"appid":appid}).then(response=>{
     res.json({ status:200,message:"Success"})
   }).catch(err=>{
     res.json({ status:400,message:"Fail"})
@@ -60,7 +60,12 @@ AppSchema.statics.removeApp = async function (userid,appid,res) {
 //Delet all aps via clientID
 AppSchema.statics.keyvalidation = async function (key,res) 
 {
-  this.find({"key":key}).remove().then(response=>{
+  this.find({"key":key}).then(response=>{
+    if(response.length == 0){
+      res.json({ status:400,message:"Fail"})
+    }else{
+      res.json({ status:200,message:"Success",appdetails:response})
+    }
     res.json({ status:200,message:"Success"})
   }).catch(err=>{
     res.json({ status:400,message:"Fail"})

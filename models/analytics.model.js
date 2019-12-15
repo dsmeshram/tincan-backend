@@ -6,12 +6,12 @@ let AnalyticsSchema = new Schema({
     appId: { type: String, required: true, max: 100 },
     userId: { type: String, required: true, max: 100 },
     deviceId: { type: String, required: true, max: 100 },
-    sessionStartTime: { type: Date, required: true },
-    sessionEndTime: { type: Date, required: true },
+    sessionStartTime: { type: String, required: true },
+    sessionEndTime: { type: String, required: true },
     activity: {
         screen: { type: String, required: true, max: 100 },
-        start: { type: Date, required: true },
-        end: { type: Date, required: true },
+        start: { type: String, required: true },
+        end: { type: String, required: true },
         memory: { type: Array, default: [] },
         network: { type: Array, default: [] },
     }
@@ -19,6 +19,7 @@ let AnalyticsSchema = new Schema({
 
 //add analytics details
 AnalyticsSchema.statics.saveAnalytics = async function (req, res) {
+    console.log(req.body);
     let analytics = {};
     // user id
     analytics.userId = req.params.userId;
@@ -30,8 +31,8 @@ AnalyticsSchema.statics.saveAnalytics = async function (req, res) {
     analytics.deviceId = req.params.deviceId;
     let data = req.body;
     if (data && (!!data) && (data.constructor === Object)) {
-        analytics.sessionStartTime = new Date(data.sessionStartTime);
-        analytics.sessionEndTime = new Date(data.sessionEndTime);
+        analytics.sessionStartTime = data.sessionStartTime;
+        analytics.sessionEndTime = data.sessionEndTime;
         let a = [];
         if (data.activity && data.activity.length != undefined) {
             if (data.activity.length) {
@@ -40,8 +41,8 @@ AnalyticsSchema.statics.saveAnalytics = async function (req, res) {
                     a.push(new Promise((resolve, reject) => {
                         analytics.activity = {
                             screen: activity.screen,
-                            start: new Date(activity.start),
-                            end: new Date(activity.end),
+                            start: activity.start,
+                            end: activity.end,
                             memory: (activity.memory && activity.memory.length ? activity.memory : []),
                             network: (activity.network && activity.network.length ? activity.network : [])
                         }
@@ -55,7 +56,7 @@ AnalyticsSchema.statics.saveAnalytics = async function (req, res) {
                 Promise.all(a).then(status => {
                     res.json({ status: 200, message: "Success" });
                 }, err => {
-                    res.json({ status: 400, message: err.errmsg, details: "few activites are not stored" });
+                    res.json({ status: 400, message: err, details: "few activites are not stored" });
                 });
             } else {
                 res.json({ status: 400, message: "activity json can not be empty" });
@@ -64,8 +65,8 @@ AnalyticsSchema.statics.saveAnalytics = async function (req, res) {
             // it is single activity i.e. object
             analytics.activity = {
                 screen: data.activity.screen,
-                start: new Date(data.activity.start),
-                end: new Date(data.activity.end),
+                start: data.activity.start,
+                end: data.activity.end,
                 memory: (data.activity.memory && data.activity.memory.length ? data.activity.memory : []),
                 network: (data.activity.network && data.activity.network.length ? data.activity.network : [])
             }
