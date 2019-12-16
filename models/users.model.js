@@ -37,7 +37,7 @@ UserSchema.statics.registerUser = async function (user, res) {
 //login check
 UserSchema.statics.login = async function (user, res) {
     console.log(user);
-    this.find({"username": user.username, "password": user.password}).then(user => {
+    this.find({"email": user.username, "password": user.password}).then(user => {
         if (user.length == 0) {
             res.json({ status: 400, message: "Fail" });
         }
