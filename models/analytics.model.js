@@ -14,6 +14,7 @@ let AnalyticsSchema = new Schema({
         end: { type: String, required: true },
         memory: { type: Array, default: [] },
         network: { type: Array, default: [] },
+        flow:{ type: Array, default: [] },
     }
 });
 
